@@ -7,11 +7,11 @@ add_subdirectory(3rdParty/glad EXCLUDE_FROM_ALL)
 add_subdirectory(3rdParty/SDL EXCLUDE_FROM_ALL)
 add_subdirectory(3rdParty/imgui-cmake EXCLUDE_FROM_ALL)
 
-add_executable(Shit_8 main.cpp
-        Chip8.cpp
-        Chip8.hpp
-        Platform.cpp
-        Platform.hpp)
+add_executable(Shit_8 src/main.cpp
+        src/lib/Chip8.cpp
+        src/lib/Chip8.hpp
+        src/lib/Platform.cpp
+        src/lib/Platform.hpp)
 
 target_compile_options(Shit_8 PRIVATE -Wall)
 
