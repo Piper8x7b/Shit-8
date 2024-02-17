@@ -4,6 +4,8 @@
 
 #define SHIT_8_Platform_HPP
 
+#include "glad/glad.h"
+
 class Platform {
 
 };
