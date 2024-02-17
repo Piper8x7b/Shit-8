@@ -1,0 +1,9 @@
+[submodule "3rdParty/glad"]
+	path = 3rdParty/glad
+	url = https://github.com/Dav1dde/glad
+[submodule "3rdParty/SDL"]
+	path = 3rdParty/SDL
+	url = https://github.com/libsdl-org/SDL
+[submodule "3rdParty/imgui-cmake"]
+	path = 3rdParty/imgui-cmake
+	url = https://github.com/tamaskenez/imgui-cmake

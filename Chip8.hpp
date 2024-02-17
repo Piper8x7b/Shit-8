@@ -2,7 +2,7 @@
 // Created by piper on 2/17/24.
 //
 
-#define SHIT_8_CHIP8_H
+#define SHIT_8_CHIP8_HPP
 
 #include <cstdint>
 #include <random>
