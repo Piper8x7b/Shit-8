@@ -14,6 +14,8 @@ public:
 
     void LoadRom(const char *filename);
 
+    void Cycle();
+
 private:
     void Table0();
 
