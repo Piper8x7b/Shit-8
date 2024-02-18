@@ -7,10 +7,16 @@
 #include <cstdint>
 #include <random>
 
+const unsigned int VIDEO_HEIGHT = 32;
+const unsigned int VIDEO_WIDTH = 64;
+
 
 class Chip8 {
 public:
     Chip8();
+
+    uint32_t video[64 * 32]{};
+    uint8_t keypad[16]{};
 
     void LoadRom(const char *filename);
 
@@ -151,8 +157,6 @@ private:
     uint8_t sp{}; // Stack pointer
     uint8_t delayTimer{};
     uint8_t soundTimer{};
-    uint8_t keypad[16]{};
-    uint32_t video[64 * 32]{};
     uint16_t opcode{};
 
     std::default_random_engine randGen;

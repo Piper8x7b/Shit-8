@@ -11,8 +11,6 @@
 const unsigned int START_ADDRESS = 0x200;
 const unsigned int FONTSET_SIZE = 80;
 const unsigned int FONTSET_START_ADDRESS = 0x50;
-const unsigned int VIDEO_HEIGHT = 32;
-const unsigned int VIDEO_WIDTH = 64;
 
 uint8_t fontset[FONTSET_SIZE] =
         {
