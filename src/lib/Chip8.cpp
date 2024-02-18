@@ -198,7 +198,7 @@ void Chip8::OP_1nnn() {
     // I *think* this extracts the lower 8 bits of opcode,
     // Thus getting the address input to the command.
     // I had to ask mistral-medium what this meant lol
-    uint16_t address = opcode & 0x0FFu;
+    uint16_t address = opcode & 0x0FFFu;
 
     pc = address; // Set the program counter to the new address
 }
@@ -439,7 +439,7 @@ void Chip8::OP_Dxyn() {
 
         for (unsigned int col = 0; col < 8; ++col) {
             uint8_t spritePixel = spriteByte & (0x80u >> col);
-            uint32_t *screenPixel = &video[(yPos, row) * VIDEO_WIDTH + (xPos + col)];
+            uint32_t *screenPixel = &video[(yPos + row) * VIDEO_WIDTH + (xPos + col)];
 
             // Sprite pixel is on
             if (spritePixel) {

@@ -1,3 +1,6 @@
 [submodule "3rdParty/imgui-cmake"]
 	path = 3rdParty/imgui-cmake
 	url = https://github.com/tamaskenez/imgui-cmake
+[submodule "3rdParty/SDL"]
+	path = 3rdParty/SDL
+	url = https://github.com/libsdl-org/SDL
