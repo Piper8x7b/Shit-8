@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories("3rdParty/glad/include")
 
-add_subdirectory(3rdParty/imgui-cmake EXCLUDE_FROM_ALL)
 add_subdirectory(3rdParty/SDL EXCLUDE_FROM_ALL)
 
 add_executable(Shit_8 src/main.cpp

@@ -1,5 +1,5 @@
 //
-// Created by piper on 2/17/24.
+// Created by Piper8x7b on 2/17/24.
 //
 
 #define SHIT_8_CHIP8_HPP
@@ -15,11 +15,14 @@ class Chip8 {
 public:
     Chip8();
 
+    // Set up video and keypad
     uint32_t video[64 * 32]{};
     uint8_t keypad[16]{};
 
-    void LoadRom(const char* filename);
+    // Load rom from file into memory
+    void LoadRom(const char *filename);
 
+    // Run a single CPU cycle
     void Cycle();
 
 private:
@@ -149,6 +152,7 @@ private:
     // LD Vx, [I] (Read registers v0 through Vx from memory starting at location I)
     void OP_Fx65();
 
+    // Set up basic system variables
     uint8_t registers[16]{};
     uint8_t memory[4096]{};
     uint16_t index{};
@@ -159,9 +163,11 @@ private:
     uint8_t soundTimer{};
     uint16_t opcode{};
 
+    // RNG
     std::default_random_engine randGen;
     std::uniform_int_distribution<uint8_t> randByte;
 
+    // Set up function pointer tables
     typedef void (Chip8::*Chip8Func)();
 
     Chip8Func table[0xF + 1];

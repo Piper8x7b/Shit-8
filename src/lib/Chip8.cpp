@@ -1,5 +1,5 @@
 //
-// Created by piper on 2/17/24.
+// Created by Piper8x7b on 2/17/24.
 //
 
 #include "Chip8.hpp"
@@ -116,40 +116,54 @@ void Chip8::TableF() {
     ((*this).*(tableF[opcode & 0x00FFu]))();
 }
 
+// Define a method to load a ROM into the Chip8's memory
 void Chip8::LoadRom(char const *filename) {
+    // Declare file variables
     FILE *pFile;
     long lSize;
     char *buffer;
     size_t result;
 
+    // Open the file in binary read mode
     pFile = std::fopen(filename, "rb");
+    // If the file could not be opened, print an error and exit
     if (pFile == NULL) {
         std::fputs("File Error", stderr);
         exit(1);
     }
 
+    // Seek to the end of the file
     std::fseek(pFile, 0, SEEK_END);
+    // Get the current file position (which is the size of the file)
     lSize = std::ftell(pFile);
+    // Rewind the file position indicator to the beginning of the file
     rewind(pFile);
 
+    // Allocate memory to hold the file data
     buffer = (char *) malloc(sizeof(char) * lSize);
+    // If the memory could not be allocated, print an error and exit
     if (buffer == NULL) {
         std::fputs("Memory error", stderr);
         exit(2);
     }
 
+    // Read the file into the buffer
     result = std::fread(buffer, 1, lSize, pFile);
+    // If the entire file could not be read, print an error and exit
     if (result != lSize) {
         fputs("Reading error", stderr);
         exit(3);
     }
 
+    // Close the file
     std::fclose(pFile);
 
+    // Copy the file data into the Chip8 system's memory, starting at START_ADDRESS
     for (long i = 0; i < lSize; i++) {
         memory[START_ADDRESS + i] = buffer[i];
     }
 
+    // Free the memory allocated for the buffer
     free(buffer);
 }
 
