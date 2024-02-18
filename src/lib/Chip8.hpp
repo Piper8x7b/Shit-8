@@ -18,7 +18,7 @@ public:
     uint32_t video[64 * 32]{};
     uint8_t keypad[16]{};
 
-    void LoadRom(const char *filename);
+    void LoadRom(const char* filename);
 
     void Cycle();
 

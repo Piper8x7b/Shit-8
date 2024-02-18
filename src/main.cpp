@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     Chip8 chip8;
     chip8.LoadRom(romFilename);
 
-    int videoPitch = sizeof(chip8.video[0] * VIDEO_WIDTH);
+    int videoPitch = sizeof(chip8.video[0]) * VIDEO_WIDTH;
 
     auto lastCycleTime = std::chrono::high_resolution_clock::now();
     bool quit = false;

@@ -1,11 +1,6 @@
-//
-// Created by piper on 2/17/24.
-//
-
 #include "Platform.hpp"
-
 #include <glad/glad.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 
 Platform::Platform(char const* title, int windowWidth, int windowHeight, int textureWidth, int textureHeight)
@@ -24,7 +19,7 @@ Platform::Platform(char const* title, int windowWidth, int windowHeight, int tex
 
     gl_context = SDL_GL_CreateContext(window);
     SDL_GL_SetSwapInterval(1);
-    gladLoadGL();
+    gladLoadGL((GLADloadproc)SDL_GL_GetProcAddress);
 
     glGenTextures(1, &framebuffer_texture);
     glBindTexture(GL_TEXTURE_2D, framebuffer_texture);

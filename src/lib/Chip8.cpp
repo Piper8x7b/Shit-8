@@ -32,19 +32,20 @@ uint8_t fontset[FONTSET_SIZE] =
                 0xF0, 0x80, 0xF0, 0x80, 0x80  // F
         };
 
-Chip8::Chip8() : randGen(std::chrono::system_clock::now().time_since_epoch().count()) {
-    // Init program counter
+Chip8::Chip8()
+        : randGen(std::chrono::system_clock::now().time_since_epoch().count()) {
+    // Initialize PC
     pc = START_ADDRESS;
 
-    // Load font into memory
-    for (unsigned int i = 0; i < FONTSET_SIZE; i++) {
+    // Load fonts into memory
+    for (unsigned int i = 0; i < FONTSET_SIZE; ++i) {
         memory[FONTSET_START_ADDRESS + i] = fontset[i];
     }
 
-    // Init rng
-    randByte = std::uniform_int_distribution<uint8_t>(0, 255u);
+    // Initialize RNG
+    randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
 
-    // Init the function pointer table
+    // Set up function pointer table
     table[0x0] = &Chip8::Table0;
     table[0x1] = &Chip8::OP_1nnn;
     table[0x2] = &Chip8::OP_2nnn;
@@ -116,28 +117,42 @@ void Chip8::TableF() {
 }
 
 void Chip8::LoadRom(char const *filename) {
-    // Open the file as a stream of binary and move the file pointer to the end
-    std::ifstream file(filename, std::ios::binary | std::ios::ate);
+    FILE *pFile;
+    long lSize;
+    char *buffer;
+    size_t result;
 
-    if (file.is_open()) {
-        // Get the size of the file and allocate a buffer to hold the contents
-        std::streampos size = file.tellg();
-        char *buffer = new char[size];
-
-        // Go back to the beginning of the file and fill the buffer
-        (void) file.seekg(0, std::ios::beg);
-        (void) file.read(buffer, size);
-        (void) file.close();
-
-        // Load the rom into the Chip8 memory, starting at 0x200
-        for (long i = 0; i < size; i++) {
-            memory[START_ADDRESS + i] = buffer[i];
-        }
-
-        // Free the buffer
-        delete[] buffer;
+    pFile = std::fopen(filename, "rb");
+    if (pFile == NULL) {
+        std::fputs("File Error", stderr);
+        exit(1);
     }
+
+    std::fseek(pFile, 0, SEEK_END);
+    lSize = std::ftell(pFile);
+    rewind(pFile);
+
+    buffer = (char *) malloc(sizeof(char) * lSize);
+    if (buffer == NULL) {
+        std::fputs("Memory error", stderr);
+        exit(2);
+    }
+
+    result = std::fread(buffer, 1, lSize, pFile);
+    if (result != lSize) {
+        fputs("Reading error", stderr);
+        exit(3);
+    }
+
+    std::fclose(pFile);
+
+    for (long i = 0; i < lSize; i++) {
+        memory[START_ADDRESS + i] = buffer[i];
+    }
+
+    free(buffer);
 }
+
 
 void Chip8::Cycle() {
     // Fetch
@@ -159,6 +174,7 @@ void Chip8::Cycle() {
         --soundTimer;
     }
 }
+
 
 // Do nothing
 void Chip8::OP_NULL() {
