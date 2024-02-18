@@ -7,6 +7,7 @@ int main(int argc, char **argv) {
     if (argc != 4) {
         std::cerr << "Usage: " << argv[0] <<
                   " <Video scale> <Cycle delay> <ROM>\n";
+        std::exit(EXIT_FAILURE);
     }
 
     int videoScale = std::stoi(argv[1]);

@@ -15,4 +15,4 @@ add_executable(Shit_8 src/main.cpp
 
 target_compile_options(Shit_8 PRIVATE -Wall)
 
-target_link_libraries(Shit_8 PRIVATE glad SDL2 imgui-cmake)
+target_link_libraries(Shit_8 PRIVATE glad SDL2 imgui)
